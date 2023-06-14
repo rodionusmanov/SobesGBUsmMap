@@ -1,4 +1,4 @@
-package com.example.sobesgbusmmap
+package com.example.sobesgbusmmap.view.map
 
 import android.Manifest
 import android.content.Context
@@ -12,12 +12,17 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import com.example.sobesgbusmmap.R
 import com.example.sobesgbusmmap.databinding.MapFragmentBinding
+import com.example.sobesgbusmmap.model.Dependencies
+import com.example.sobesgbusmmap.model.room.MarkerData
+import com.example.sobesgbusmmap.view.markerList.MarkerListFragment
+import com.example.sobesgbusmmap.viewModel.map.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -30,16 +35,28 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 
-class MapFragment : Fragment(){
+class MapFragment : Fragment() {
+
+    private val viewModel by lazy { MapViewModel(Dependencies.markersRepository) }
 
     private lateinit var map: GoogleMap
 
+    private var markersList: List<MarkerData> = emptyList()
+
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        map.setOnMapLongClickListener { setMarker(it,"click marker ${LocalDateTime.now()}") }
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        map.setOnMapLongClickListener {
+            setMarker(it, "click marker ${LocalDateTime.now()}")
+            insertMarkerFromClick(
+                (it.latitude + it.longitude).toLong(),
+                it.latitude,
+                it.longitude,
+                "click marker ${LocalDateTime.now()}"
+            )
+        }
+//        val sydney = LatLng(-34.0, 151.0)
+//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         googleMap.uiSettings.isZoomControlsEnabled = true
     }
 
@@ -54,17 +71,32 @@ class MapFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Dependencies.init(requireContext())
         setHasOptionsMenu(true)
         _binding = MapFragmentBinding.inflate(inflater)
         initMap()
         return binding.root
     }
 
-    private fun initMap() {
+    private fun initMarkerList() {
+        viewModel.getAllMarkers().observe(viewLifecycleOwner, Observer { returnedData ->
+            markersList = returnedData
+            if (markersList.isNotEmpty()) {
+                markersList.forEach {
+                    setMarker(
+                        LatLng(it.markerCoordinatesLat, it.markerCoordinatesLng),
+                        it.markerName
+                    )
+                }
+            }
+        })
+    }
 
+    private fun initMap() {
         val mapFragment =
             childFragmentManager.findFragmentById(R.id.google_map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+        initMarkerList()
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
@@ -80,9 +112,26 @@ class MapFragment : Fragment(){
         R.id.set_marker_on_device_location -> {
             if (checkLocationPermission()) {
                 setMarker(getLocation(), "Device location ${LocalDate.now().toString()}")
+                insertMarkerFromClick(
+                    (getLocation().latitude + getLocation().longitude).toLong(),
+                    getLocation().latitude,
+                    getLocation().longitude,
+                    "Device location ${LocalDate.now().toString()}"
+                )
             } else {
                 showSnackbarNoGPSPermission()
             }
+            true
+        }
+
+        R.id.item_marker_list -> {
+            requireActivity()
+                .supportFragmentManager
+                .beginTransaction()
+                .hide(this)
+                .add(R.id.container, MarkerListFragment())
+                .addToBackStack(null)
+                .commit()
             true
         }
 
@@ -160,7 +209,6 @@ class MapFragment : Fragment(){
             if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
                 val criteria = Criteria()
                 criteria.accuracy = Criteria.ACCURACY_FINE
-                val provider = locationManager.getBestProvider(criteria, true)
                 locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
                     0L,
@@ -174,7 +222,7 @@ class MapFragment : Fragment(){
             }
         }
         return if (lastKnownLocation != null) {
-            LatLng(lastKnownLocation!!.latitude, lastKnownLocation!!.longitude)
+            LatLng(lastKnownLocation.latitude, lastKnownLocation.longitude)
         } else {
             LatLng(0.0, 0.0)
         }
@@ -209,4 +257,13 @@ class MapFragment : Fragment(){
         requestPermissions(arrayOf(permission), REQUEST_CODE_LOCATION)
     }
 
+    private fun insertMarkerFromClick(id: Long, lat: Double, lng: Double, name: String) {
+        viewModel.insertNewMarker(
+            id,
+            name,
+            lat,
+            lng,
+            ""
+        )
+    }
 }

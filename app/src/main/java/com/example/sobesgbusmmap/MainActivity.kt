@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import com.example.sobesgbusmmap.databinding.ActivityMainBinding
+import com.example.sobesgbusmmap.view.map.MapFragment
 
 class MainActivity : AppCompatActivity() {
 

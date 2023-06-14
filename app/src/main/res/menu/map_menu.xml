@@ -8,11 +8,17 @@
         android:icon="@android:drawable/ic_dialog_map"
         android:id="@+id/center_geoposition"
         android:title="@string/find_me"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 
     <item
         android:icon="@android:drawable/ic_menu_compass"
         android:id="@+id/set_marker_on_device_location"
         android:title="@string/set_marker_on_device_location"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@android:drawable/ic_menu_edit"
+        android:id="@+id/item_marker_list"
+        android:title="@string/marker_list"
+        app:showAsAction="ifRoom"/>
 </menu>
