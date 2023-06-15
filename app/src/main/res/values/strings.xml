@@ -5,4 +5,7 @@
     <string name="marker_list">Marker list</string>
     <string name="save">save</string>
     <string name="delete">delete</string>
+    <string name="marker_name">Marker name</string>
+    <string name="marker_coordinates">Marker coordinates</string>
+    <string name="marker_annotation">Marker annotation</string>
 </resources>

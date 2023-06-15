@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.google.android.gms.maps.model.LatLng
 
 @Entity(tableName = "markers_table", indices = [Index("id")])
 data class MarkersEntity(

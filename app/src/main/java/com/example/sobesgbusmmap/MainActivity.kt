@@ -28,4 +28,11 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.map_menu, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    override fun onBackPressed() {
+        val fragment = this.supportFragmentManager.findFragmentById(R.id.container)
+        (fragment as IonBackPressed).onBackPressed().not().let {
+            super.onBackPressed()
+        }
+    }
 }

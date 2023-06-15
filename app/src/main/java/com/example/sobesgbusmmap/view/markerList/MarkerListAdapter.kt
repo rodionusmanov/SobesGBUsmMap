@@ -8,11 +8,12 @@ import com.example.sobesgbusmmap.databinding.MarkerListItemBinding
 import com.example.sobesgbusmmap.model.room.MarkerData
 
 class MarkerListAdapter(
-    private val markerList: List<MarkerData>,
-    val callbackDeleteItem: IDeleteMarker
+    markerList: List<MarkerData>,
+    val callbackDeleteItem: IDeleteMarker,
+    val callbackSaveItemChanges: ISaveMarkerChanges
 ) : RecyclerView.Adapter<MarkerListAdapter.MarkerListViewHolder>() {
 
-    val mutableMarkerList: MutableList<MarkerData> = markerList.toMutableList()
+    private val mutableMarkerList: MutableList<MarkerData> = markerList.toMutableList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MarkerListViewHolder {
 
@@ -37,16 +38,18 @@ class MarkerListAdapter(
     inner class MarkerListViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(marker: MarkerData) {
             MarkerListItemBinding.bind(itemView).apply {
-                markerName.text = marker.markerName
+                markerName.setText(marker.markerName)
                 markerCoordinates.text =
-                    "lat: ${marker.markerCoordinatesLat} '/n' lon: ${marker.markerCoordinatesLng}"
+                    "lat: ${marker.markerCoordinatesLat} \n lon: ${marker.markerCoordinatesLng}"
                 markerAnnotation.setText(marker.markerAnnotation)
                 deleteMarkerButton.setOnClickListener {
                     callbackDeleteItem.delete(marker.markerId, layoutPosition)
                 }
-                /*root.setOnClickListener {
-                    callback.onItemClick(weather)
-                }*/
+                saveChangesButton.setOnClickListener {
+                    marker.markerName = markerName.text.toString()
+                    marker.markerAnnotation = markerAnnotation.text.toString()
+                    callbackSaveItemChanges.saveChanges(marker, layoutPosition)
+                }
             }
         }
     }

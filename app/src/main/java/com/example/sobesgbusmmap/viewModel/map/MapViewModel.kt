@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MapViewModel(private val markersRepository: MarkersRepositoryImpl) : ViewModel() {
 
-    protected val viewModelCoroutineScope = CoroutineScope(
+    private val viewModelCoroutineScope = CoroutineScope(
         Dispatchers.Main
                 + SupervisorJob()
     )
@@ -40,10 +40,18 @@ class MapViewModel(private val markersRepository: MarkersRepositoryImpl) : ViewM
         return result
     }
 
-    fun deleteMarkerById(id: Long) {
+    fun checkMarkerWithAskedId(id: Long): LiveData<Boolean> {
+        val isExisted = MutableLiveData<Boolean>()
         viewModelCoroutineScope.launch {
-
-            markersRepository.removeMarkerFromData(id)
+            var existed = false
+            val returnedData = markersRepository.getAllMarkersData()
+            returnedData.forEach {
+                if (it.markerId == id) {
+                    existed = true
+                }
+            }
+            isExisted.postValue(existed)
         }
+        return isExisted
     }
 }

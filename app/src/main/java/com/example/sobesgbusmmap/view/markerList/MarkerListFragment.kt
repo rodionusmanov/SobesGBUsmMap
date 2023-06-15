@@ -4,13 +4,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sobesgbusmmap.IonBackPressed
 import com.example.sobesgbusmmap.databinding.MarkerListFragmentBinding
 import com.example.sobesgbusmmap.model.Dependencies
+import com.example.sobesgbusmmap.model.room.MarkerData
+import com.example.sobesgbusmmap.view.map.IRefreshMarkers
 import com.example.sobesgbusmmap.viewModel.markerList.MarkerListViewModel
 
-class MarkerListFragment : Fragment(){
+class MarkerListFragment(private val callbackRefreshMarkers: IRefreshMarkers) : Fragment(), IonBackPressed {
 
     private var _binding: MarkerListFragmentBinding? = null
     private val binding: MarkerListFragmentBinding
@@ -29,9 +33,10 @@ class MarkerListFragment : Fragment(){
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    private val callbackSaveItemChanges = object : ISaveMarkerChanges {
+        override fun saveChanges(markerData: MarkerData, position: Int) {
+            viewModel.saveMarkerChanges(markerData)
+        }
     }
 
     override fun onCreateView(
@@ -53,8 +58,14 @@ class MarkerListFragment : Fragment(){
 
     private fun initMarkerList() {
         viewModel.getAllMarkers().observe(viewLifecycleOwner) {
-            markersAdapter = MarkerListAdapter(it, callbackDeleteItem)
+            markersAdapter = MarkerListAdapter(it, callbackDeleteItem, callbackSaveItemChanges)
             binding.markerListRecyclerView.adapter = markersAdapter
         }
+    }
+
+    override fun onBackPressed(): Boolean {
+        callbackRefreshMarkers.refreshMarkers()
+        Toast.makeText(requireContext(), "refreshing markers", Toast.LENGTH_SHORT).show()
+        return true
     }
 }

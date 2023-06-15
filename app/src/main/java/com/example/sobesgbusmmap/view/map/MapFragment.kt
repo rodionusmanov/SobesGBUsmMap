@@ -12,15 +12,16 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.example.sobesgbusmmap.R
 import com.example.sobesgbusmmap.databinding.MapFragmentBinding
 import com.example.sobesgbusmmap.model.Dependencies
 import com.example.sobesgbusmmap.model.room.MarkerData
+import com.example.sobesgbusmmap.utils.REQUEST_CODE_LOCATION
 import com.example.sobesgbusmmap.view.markerList.MarkerListFragment
 import com.example.sobesgbusmmap.viewModel.map.MapViewModel
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -36,7 +37,6 @@ import java.time.LocalDateTime
 
 
 class MapFragment : Fragment() {
-
     private val viewModel by lazy { MapViewModel(Dependencies.markersRepository) }
 
     private lateinit var map: GoogleMap
@@ -54,9 +54,6 @@ class MapFragment : Fragment() {
                 "click marker ${LocalDateTime.now()}"
             )
         }
-//        val sydney = LatLng(-34.0, 151.0)
-//        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-//        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
         googleMap.uiSettings.isZoomControlsEnabled = true
     }
 
@@ -79,7 +76,7 @@ class MapFragment : Fragment() {
     }
 
     private fun initMarkerList() {
-        viewModel.getAllMarkers().observe(viewLifecycleOwner, Observer { returnedData ->
+        viewModel.getAllMarkers().observe(viewLifecycleOwner) { returnedData ->
             markersList = returnedData
             if (markersList.isNotEmpty()) {
                 markersList.forEach {
@@ -89,7 +86,7 @@ class MapFragment : Fragment() {
                     )
                 }
             }
-        })
+        }
     }
 
     private fun initMap() {
@@ -111,12 +108,12 @@ class MapFragment : Fragment() {
 
         R.id.set_marker_on_device_location -> {
             if (checkLocationPermission()) {
-                setMarker(getLocation(), "Device location ${LocalDate.now().toString()}")
+                setMarker(getLocation(), "Device location ${LocalDate.now()}")
                 insertMarkerFromClick(
-                    (getLocation().latitude + getLocation().longitude).toLong(),
+                    (getLocation().latitude * getLocation().longitude).toLong(),
                     getLocation().latitude,
                     getLocation().longitude,
-                    "Device location ${LocalDate.now().toString()}"
+                    "Device location ${LocalDate.now()}"
                 )
             } else {
                 showSnackbarNoGPSPermission()
@@ -128,8 +125,7 @@ class MapFragment : Fragment() {
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
-                .hide(this)
-                .add(R.id.container, MarkerListFragment())
+                .replace(R.id.container, MarkerListFragment(callbackRefreshMarkers))
                 .addToBackStack(null)
                 .commit()
             true
@@ -251,19 +247,36 @@ class MapFragment : Fragment() {
         }
     }
 
-    private val REQUEST_CODE_LOCATION = 666
 
     private fun permissionRequest(permission: String) {
         requestPermissions(arrayOf(permission), REQUEST_CODE_LOCATION)
     }
 
     private fun insertMarkerFromClick(id: Long, lat: Double, lng: Double, name: String) {
-        viewModel.insertNewMarker(
-            id,
-            name,
-            lat,
-            lng,
-            ""
-        )
+        checkMarkerIsExistedAndInsert(id, lat, lng, name)
     }
+
+    private fun checkMarkerIsExistedAndInsert(id: Long, lat: Double, lng: Double, name: String) {
+        viewModel.checkMarkerWithAskedId(id).observe(viewLifecycleOwner) {
+            if (!it) {
+                viewModel.insertNewMarker(
+                    id,
+                    name,
+                    lat,
+                    lng,
+                    ""
+                )
+            } else {
+                Toast.makeText(requireContext(), "Marker is existed already", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    private val callbackRefreshMarkers = object : IRefreshMarkers {
+        override fun refreshMarkers() {
+            map.clear()
+        }
+    }
+
 }

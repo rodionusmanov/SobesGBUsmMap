@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    app:cardBackgroundColor="?attr/colorAccent"
+    app:cardBackgroundColor="?attr/elevationOverlayColor"
     app:cardCornerRadius="16dp">
 
     <LinearLayout
@@ -21,49 +21,112 @@
                 android:id="@+id/save_changes_button"
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                app:chipCornerRadius="25dp"
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/save"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:text="@string/save"/>
+                app:chipCornerRadius="25dp" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/delete_marker__button"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
-                app:chipCornerRadius="25dp"
+                android:layout_marginHorizontal="10dp"
+                android:text="@string/delete"
                 android:textAlignment="center"
                 android:textSize="14sp"
-                android:text="@string/delete"/>
-
+                app:chipCornerRadius="25dp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/marker_name"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="name"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="20dp">
 
-        <TextView
-            android:id="@+id/marker_coordinates"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/marker_name"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:background="@android:color/system_accent3_300"/>
+
+            <EditText
+                android:id="@+id/marker_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="coordinates"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="20dp">
 
-        <EditText
-            android:id="@+id/marker_annotation"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/marker_coordinates"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:background="@android:color/system_accent3_300"/>
+
+            <TextView
+                android:id="@+id/marker_coordinates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
-            android:text="annotation"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="20dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/marker_annotation"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:background="@android:color/system_accent3_300"/>
+
+            <EditText
+                android:id="@+id/marker_annotation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

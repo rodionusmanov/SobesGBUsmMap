@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 
 class MarkerListViewModel(private val markersRepository: MarkersRepositoryImpl) : ViewModel() {
 
-    protected val viewModelCoroutineScope = CoroutineScope(
+    private val viewModelCoroutineScope = CoroutineScope(
         Dispatchers.Main
                 + SupervisorJob()
     )
@@ -29,6 +29,15 @@ class MarkerListViewModel(private val markersRepository: MarkersRepositoryImpl) 
     fun deleteMarkerById(id: Long) {
         viewModelCoroutineScope.launch {
             markersRepository.removeMarkerFromData(id)
+        }
+    }
+
+    fun saveMarkerChanges(
+        newMarkerData: MarkerData
+    ) {
+        viewModelCoroutineScope.launch {
+            markersRepository.removeMarkerFromData(newMarkerData.markerId)
+            markersRepository.insertNewMarkerToData(newMarkerData)
         }
     }
 }
