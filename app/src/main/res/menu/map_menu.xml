@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <item
+        android:icon="@android:drawable/ic_dialog_map"
+        android:id="@+id/center_geoposition"
+        android:title="@string/find_me"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@android:drawable/ic_menu_compass"
+        android:id="@+id/set_marker_on_device_location"
+        android:title="@string/set_marker_on_device_location"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@android:drawable/ic_menu_edit"
+        android:id="@+id/item_marker_list"
+        android:title="@string/marker_list"
+        app:showAsAction="ifRoom"/>
+</menu>
