@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,15 +7,9 @@
     android:orientation="vertical"
     tools:context=".mapApp.MainActivity">
 
-<!--    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/main_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"/>-->
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout>
+</FrameLayout>

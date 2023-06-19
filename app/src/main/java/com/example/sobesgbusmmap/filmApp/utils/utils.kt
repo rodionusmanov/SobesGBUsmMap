@@ -1,5 +1,6 @@
 package com.example.sobesgbusmmap.filmApp.utils
 
+import android.graphics.Color
 import com.example.sobesgbusmmap.filmApp.model.Movie
 import com.example.sobesgbusmmap.filmApp.model.dataTransferObject.TopFilmsDataTransferObject
 
@@ -23,3 +24,16 @@ fun convertDTOToTopMovieList(topFilmsDataTransferObject: TopFilmsDataTransferObj
 
     return convertedList
 }
+
+fun convertRatingToColor(rating: String): Int {
+    var convertedColor = if (rating.toDouble() > 5.0) {
+        Color.argb(255, getRed(rating.toDouble()), 200, 0)
+    } else {
+        Color.argb(255, 200, getGreen(rating.toDouble()), 0)
+    }
+    return convertedColor
+}
+
+fun getGreen(toDouble: Double) = (toDouble / 5.0 * 200).toInt()
+
+fun getRed(toDouble: Double) = ((5.0 - toDouble) / 5.0 * 200).toInt()
