@@ -8,4 +8,6 @@
     <string name="marker_name">Marker name</string>
     <string name="marker_coordinates">Marker coordinates</string>
     <string name="marker_annotation">Marker annotation</string>
+    <string name="IMDB_Rating_Count">IMDB Rating Count</string>
+    <string name="film_image">film \nimage</string>
 </resources>
