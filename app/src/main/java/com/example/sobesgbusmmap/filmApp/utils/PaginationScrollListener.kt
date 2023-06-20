@@ -1,12 +1,12 @@
 package com.example.sobesgbusmmap.filmApp.utils
 
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 
-abstract class PaginationScrollListener(layoutManager: LinearLayoutManager): RecyclerView.OnScrollListener() {
+abstract class PaginationScrollListener(layoutManager: GridLayoutManager): RecyclerView.OnScrollListener() {
 
-    private val layoutManager: LinearLayoutManager = layoutManager
+    private val layoutManager: GridLayoutManager = layoutManager
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)

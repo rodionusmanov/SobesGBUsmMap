@@ -14,16 +14,17 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/film_image" />
 
         <TextView
             android:id="@+id/tv_full_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="12dp"
+            android:padding="@dimen/textView_padding"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="@dimen/fullTitle_textSize"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,9 +34,9 @@
             android:id="@+id/tv_crew"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="@dimen/textView_padding"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/textView_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_full_title" />
@@ -44,9 +45,9 @@
             android:id="@+id/tv_ratingCount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:padding="@dimen/textView_padding"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/textView_text_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_crew" />
@@ -55,7 +56,7 @@
             android:id="@+id/cv_rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="12dp"
+            app:cardCornerRadius="@dimen/cardView_cornerRadius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -63,9 +64,9 @@
                 android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/textView_padding"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/textView_text_size"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>
@@ -74,8 +75,8 @@
             android:id="@+id/cv_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:cardCornerRadius="12dp"
+            android:layout_marginTop="@dimen/cardView_margin_top"
+            app:cardCornerRadius="@dimen/cardView_cornerRadius"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cv_rating">
 
@@ -83,9 +84,9 @@
                 android:id="@+id/tv_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:padding="@dimen/textView_padding"
                 android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textSize="@dimen/textView_text_size"
                 android:textStyle="bold" />
 
         </androidx.cardview.widget.CardView>

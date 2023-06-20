@@ -5,7 +5,7 @@ import com.example.sobesgbusmmap.filmApp.model.Movie
 import com.example.sobesgbusmmap.filmApp.model.dataTransferObject.TopFilmsDataTransferObject
 
 fun convertDTOToTopMovieList(topFilmsDataTransferObject: TopFilmsDataTransferObject): List<Movie> {
-    val convertedList: MutableList<Movie> = mutableListOf<Movie>()
+    val convertedList: MutableList<Movie> = mutableListOf()
     topFilmsDataTransferObject.listTop250Data.forEach {
         convertedList.add(
             Movie(
@@ -26,7 +26,7 @@ fun convertDTOToTopMovieList(topFilmsDataTransferObject: TopFilmsDataTransferObj
 }
 
 fun convertRatingToColor(rating: String): Int {
-    var convertedColor = if (rating.toDouble() > 5.0) {
+    val convertedColor = if (rating.toDouble() > 5.0) {
         Color.argb(255, getRed(rating.toDouble()), 200, 0)
     } else {
         Color.argb(255, 200, getGreen(rating.toDouble()), 0)

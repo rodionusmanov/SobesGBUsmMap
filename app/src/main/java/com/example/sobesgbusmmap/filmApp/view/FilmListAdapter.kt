@@ -12,7 +12,6 @@ import com.example.sobesgbusmmap.filmApp.model.Movie
 import com.example.sobesgbusmmap.filmApp.utils.convertRatingToColor
 
 class FilmListAdapter(
-//    private val movieList: List<Movie>,
     private var fragment: FilmListFragment,
     val callbackOpenFilmInfo: IOpenFilmInfo
 ) :
@@ -22,9 +21,6 @@ class FilmListAdapter(
     private val loading: Int = 1
 
     private var isLoadingAdded: Boolean = false
-    private var retryPageLoad: Boolean = false
-
-    private var errorMsg: String? = ""
 
     private var moviesModels: MutableList<Movie> = ArrayList()
 
@@ -32,7 +28,7 @@ class FilmListAdapter(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        var viewHolder: RecyclerView.ViewHolder
+        val viewHolder: RecyclerView.ViewHolder
         when (viewType) {
             item -> {
                 val binding =

@@ -5,10 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import coil.load
+import com.example.sobesgbusmmap.R
 import com.example.sobesgbusmmap.databinding.FilmInfoFragmentBinding
 import com.example.sobesgbusmmap.filmApp.model.Movie
 import com.example.sobesgbusmmap.filmApp.utils.convertRatingToColor
@@ -51,7 +50,7 @@ class FilmInfoFragment(private val movie: Movie) : Fragment() {
             tvYear.text = movie.year
             cvYear.setCardBackgroundColor(convertRatingToColor(movie.imdbRating))
             tvCrew.text = movie.crew
-            tvRatingCount.text = "IMDB Rating Count: ${movie.imDbRatingCount}"
+            tvRatingCount.text = getString(R.string.IMDB_Rating_Count) + movie.imDbRatingCount
         }
     }
 }
