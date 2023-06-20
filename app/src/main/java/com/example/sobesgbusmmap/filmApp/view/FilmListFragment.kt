@@ -1,22 +1,26 @@
 package com.example.sobesgbusmmap.filmApp.view
 
-import android.app.ActionBar.LayoutParams
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sobesgbusmmap.R
 import com.example.sobesgbusmmap.databinding.FilmMainFragmentBinding
 import com.example.sobesgbusmmap.filmApp.model.Movie
+import com.example.sobesgbusmmap.filmApp.utils.PaginationScrollListener
 import com.example.sobesgbusmmap.filmApp.viewModel.FilmsFragmentAppState
 import com.example.sobesgbusmmap.filmApp.viewModel.FilmsViewModel
-import com.example.sobesgbusmmap.mapApp.view.markerList.IDeleteMarker
 
 class FilmListFragment : Fragment() {
+
+    private val pageStart: Int = 0
+    private var isLoading: Boolean = false
+    private var isLastPage: Boolean = false
+    private var totalPages: Int = 249
+    private var currentPage: Int = pageStart
+    var movieListToAdapter: MutableList<Movie> = arrayListOf()
 
     private var _binding: FilmMainFragmentBinding? = null
     private val binding: FilmMainFragmentBinding
@@ -43,7 +47,7 @@ class FilmListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        _binding = FilmMainFragmentBinding.inflate(inflater)
+        _binding = FilmMainFragmentBinding.inflate(inflater,container, false)
         return binding.root
     }
 
@@ -51,9 +55,6 @@ class FilmListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.filmsLiveData.observe(viewLifecycleOwner, { renderData(it) })
         viewModel.getTopMoviesList()
-        binding.filmListRecyclerview.apply {
-            layoutManager = GridLayoutManager(requireContext(),2)
-        }
     }
 
     private fun renderData(it: FilmsFragmentAppState) {
@@ -66,10 +67,42 @@ class FilmListFragment : Fragment() {
 
             is FilmsFragmentAppState.Success -> {
                 with(binding) {
-                    filmListAdapter = FilmListAdapter(it.movieList, callbackOpenFilmInfo)
+                    filmListRecyclerview.layoutManager =
+                        LinearLayoutManager(requireContext())
+
+                    filmListAdapter = FilmListAdapter(this@FilmListFragment, callbackOpenFilmInfo)
+                    filmListAdapter.add(it.movieList[pageStart])
                     filmListRecyclerview.adapter = filmListAdapter
+
+                    filmListRecyclerview.addOnScrollListener(object :
+                        PaginationScrollListener(binding.filmListRecyclerview.layoutManager as LinearLayoutManager) {
+                        override fun loadMoreItems() {
+                            currentPage += 1
+                            filmListAdapter.add(it.movieList[currentPage])
+
+                        }
+
+                        override fun getTotalPageCount(): Int {
+                            return totalPages
+                        }
+
+                        override fun isLastPage(): Boolean {
+                            if (currentPage == getTotalPageCount()) {
+                                return !isLastPage
+                            }
+                            return isLastPage
+                        }
+
+                        override fun isLoading(): Boolean {
+                            return isLoading
+                        }
+                    })
+
                 }
             }
         }
+    }
+
+    fun loadNextPage() {
     }
 }

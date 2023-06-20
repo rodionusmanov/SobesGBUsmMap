@@ -27,7 +27,7 @@ class FilmInfoFragment(private val movie: Movie) : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FilmInfoFragmentBinding.inflate(inflater)
+        _binding = FilmInfoFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
