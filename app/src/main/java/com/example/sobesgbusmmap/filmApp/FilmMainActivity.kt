@@ -14,7 +14,6 @@ class FilmMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        setSupportActionBar(findViewById(R.id.main_toolbar))
 
         supportFragmentManager
             .beginTransaction()
@@ -22,17 +21,4 @@ class FilmMainActivity : AppCompatActivity() {
                 R.id.container, FilmListFragment()
             ).commit()
     }
-
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.map_menu, menu)
-        return super.onCreateOptionsMenu(menu)
-    }*/
-
-    /*override fun onBackPressed() {
-        val fragment = this.supportFragmentManager.findFragmentById(R.id.container)
-        (fragment as IonBackPressed).onBackPressed().not().let {
-            super.onBackPressed()
-        }
-    }*/
 }
