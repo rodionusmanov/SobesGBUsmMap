@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    //edu app
+    <color name="background_main">#FF1c1d21</color>
+    <color name="cardview_background">#FF232429</color>
+    <color name="lesson_logo_background">#414247</color>
+    <color name="time_background">#33232429</color>
+    <color name="bottom_nav_active_background">#FF203434</color>
+    <color name="bottom_nav_active_text">#FF36dfa7</color>
+    <color name="white_text">#FFfbfefd</color>
+    <color name="open_in_background">#FF4bcfff</color>
+
 </resources>
