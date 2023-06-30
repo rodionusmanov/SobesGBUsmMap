@@ -8,8 +8,8 @@ import kotlinx.parcelize.Parcelize
 data class InnerData(
     @SerializedName("kind")
     val kind: String,
-    @SerializedName("selftext")
-    val selfText: String,
+    @SerializedName("title")
+    val title: String,
     @SerializedName("score")
     val score: Int,
     @SerializedName("num_comments")

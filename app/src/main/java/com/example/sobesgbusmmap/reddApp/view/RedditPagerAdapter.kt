@@ -16,7 +16,7 @@ class RedditPagerAdapter :
 
         val redditData = getItem(position)!!
         holder.view.apply {
-            tvSelfText.text = redditData.innerData.selfText
+            tvSelfText.text = redditData.innerData.title
             tvScore.text = "${redditData.innerData.score}"
             tvComments.text = "${redditData.innerData.numberOfComments}"
         }
