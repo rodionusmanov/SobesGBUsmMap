@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/edu_classes_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_main">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:backgroundTint="@color/cardview_background"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        app:cardCornerRadius="32dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.7" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginVertical="35dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/lesson_logo_background"
+                app:cardCornerRadius="16dp">
+
+                <ImageView
+                    android:id="@+id/iv_lesson_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="12dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/history" />
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="6"
+                android:orientation="vertical"
+                android:layout_marginVertical="30dp"
+                android:paddingLeft="20dp">
+
+                <TextView
+                    android:id="@+id/tv_lesson_name"
+                    style="@style/text_bottom_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:text="history" />
+
+                <TextView
+                    android:id="@+id/tv_lesson_interval"
+                    style="@style/text_bottom_style"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="start|center"
+                    android:text="8:00 - 8:45"
+                    android:textColor="@color/lesson_logo_background" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/skype_section"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.3"
+                android:scaleType="centerCrop"
+                android:src="@drawable/open_in"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

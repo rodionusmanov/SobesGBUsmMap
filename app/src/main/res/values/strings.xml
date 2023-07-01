@@ -10,4 +10,14 @@
     <string name="marker_annotation">Marker annotation</string>
     <string name="IMDB_Rating_Count">IMDB Rating Count</string>
     <string name="film_image">film \nimage</string>
+    <string name="home">Home</string>
+    <string name="classes">Classes</string>
+    <string name="favorite">Favorite\n</string>
+    <string name="are_you_ready_for_exams">Are you ready for exams?</string>
+    <string name="days">Days</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="task_list">Task list</string>
+    <string name="homework">Homework</string>
+    <string name="_6_classes_left">6 classes left</string>
 </resources>

@@ -5,4 +5,9 @@
     <dimen name="cardView_cornerRadius">12dp</dimen>
     <dimen name="fullTitle_textSize">24sp</dimen>
     <dimen name="cardView_margin_top">4dp</dimen>
+    <dimen name="time_digit_field_margin_vertical">30dp</dimen>
+    <dimen name="time_units_margin_horizontal">3dp</dimen>
+    <dimen name="time_digit_field_margin_horizontal">24dp</dimen>
+    <dimen name="time_bottom_horizontal_margin">10dp</dimen>
+    <dimen name="time_header_bottom_margin">10dp</dimen>
 </resources>

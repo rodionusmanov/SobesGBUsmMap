@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/background_main">
+
+    <FrameLayout
+        android:id="@+id/edu_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+
+    </FrameLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/cardview_background"
+        app:labelVisibilityMode="selected"
+        app:itemBackground="@drawable/edu_bottom_nav_item_background"
+        app:itemIconTint="@color/bottom_nav_item_selector"
+        app:itemTextColor="@color/bottom_nav_item_selector"
+        app:menu="@menu/edu_menu"/>
+
+</LinearLayout>
