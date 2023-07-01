@@ -15,7 +15,7 @@ class RedditRepository constructor(
     fun getAllData(): LiveData<PagingData<InnerChildrenData>>{
         return Pager(
             config = PagingConfig(
-                pageSize = 30,
+                pageSize = 3,
                 enablePlaceholders = false,
                 initialLoadSize = 3,
                 prefetchDistance = 3
