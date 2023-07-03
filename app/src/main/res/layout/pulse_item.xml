@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@android:color/darker_gray"
+        android:paddingLeft="14dp"
+        android:text="-"
+        android:textColor="@color/background_main"
+        android:textSize="14sp"
+        android:gravity="center_vertical"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/evening_background">
+
+        <TextView
+            android:id="@+id/tv_evening_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="14dp"
+            android:text="-"
+            android:textColor="@color/lesson_logo_background"
+            android:textSize="14sp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_evening_pressure"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="-  /  -"
+            android:textColor="@color/lesson_logo_background"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:src="@drawable/heart"
+            app:tint="@color/lesson_logo_background"
+            android:padding="7dp"/>
+
+        <TextView
+            android:id="@+id/tv_evening_pulse"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:text="-"
+            android:textColor="@color/background_main"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:paddingEnd="20dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@drawable/morning_background">
+
+        <TextView
+            android:id="@+id/tv_morning_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingLeft="14dp"
+            android:text="-"
+            android:textColor="@color/background_main"
+            android:textSize="14sp"
+            android:gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_morning_pressure"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:text="-  /  -"
+            android:textColor="@color/lesson_logo_background"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3"
+            android:src="@drawable/heart"
+            app:tint="@color/lesson_logo_background"
+            android:padding="7dp"/>
+
+        <TextView
+            android:id="@+id/tv_morning_pulse"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.7"
+            android:text="-"
+            android:textColor="@color/background_main"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:paddingEnd="20dp"/>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+</LinearLayout>
