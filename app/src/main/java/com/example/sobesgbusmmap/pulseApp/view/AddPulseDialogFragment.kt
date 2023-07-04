@@ -23,6 +23,8 @@ import java.time.format.DateTimeFormatter
 
 class AddPulseDialogFragment(private var pulseList: MutableList<PulseData>) : DialogFragment() {
     private lateinit var binding: PulseAddDialogFragmentBinding
+    private var isTimeCustom = false
+    private var isMorning = true
 
     override fun onStart() {
         super.onStart()
@@ -53,7 +55,7 @@ class AddPulseDialogFragment(private var pulseList: MutableList<PulseData>) : Di
         val formatterDate = DateTimeFormatter.ofPattern("dd-MM-yyyy")
         binding.tietDate.setText(LocalDate.now().format(formatterDate))
         binding.tietTime.setText(LocalDateTime.now().format(formatterTime))
-        if (LocalDateTime.now().hour < 14) {
+        if (LocalDateTime.now().hour < 12) {
             binding.llBackground.background =
                 resources.getDrawable(R.drawable.morning_background, null)
         } else {
@@ -61,21 +63,140 @@ class AddPulseDialogFragment(private var pulseList: MutableList<PulseData>) : Di
                 resources.getDrawable(R.drawable.evening_background, null)
         }
 
+        binding.chipNow.setOnClickListener {
+            isTimeCustom = false
+            with(binding){
+                chipCustomEvening.visibility = View.INVISIBLE
+                chipCustomMorning.visibility = View.INVISIBLE
+                chipNow.background.setTint(resources.getColor(R.color.darker_gray))
+                chipCustomTime.background.setTint(resources.getColor(R.color.white))
+            }
+        }
+
+        binding.chipCustomTime.setOnClickListener {
+            isTimeCustom = true
+            Toast.makeText(context, "yes", Toast.LENGTH_SHORT).show()
+            with(binding){
+                chipCustomEvening.visibility = View.VISIBLE
+                chipCustomMorning.visibility = View.VISIBLE
+                chipNow.background.setTint(resources.getColor(R.color.white))
+                chipCustomTime.background.setTint(resources.getColor(R.color.darker_gray))
+                if(isMorning){
+                    chipCustomMorning.background.setTint(resources.getColor(R.color.darker_gray))
+                    chipCustomEvening.background.setTint(resources.getColor(R.color.white))
+                } else {
+                    chipCustomMorning.background.setTint(resources.getColor(R.color.white))
+                    chipCustomEvening.background.setTint(resources.getColor(R.color.darker_gray))
+                }
+            }
+        }
+
+        binding.chipCustomMorning.setOnClickListener {
+            isMorning = true
+            binding.chipCustomMorning.background.setTint(resources.getColor(R.color.darker_gray))
+            binding.chipCustomEvening.background.setTint(resources.getColor(R.color.white))
+        }
+
+        binding.chipCustomEvening.setOnClickListener {
+            isMorning = false
+            binding.chipCustomMorning.background.setTint(resources.getColor(R.color.white))
+            binding.chipCustomEvening.background.setTint(resources.getColor(R.color.darker_gray))
+        }
+
         binding.chipSave.setOnClickListener {
+
             if (isAllFieldsFilled()) {
                 Toast.makeText(context, "заполните все поля", Toast.LENGTH_SHORT).show()
             } else {
-                GlobalScope.launch(Dispatchers.IO) {
-                    if (dateAlreadyExists()) {
-                        addOrReplacePulse()
+                if (!isTimeCustom) {
+                    coroutineAddNotCustomTimePulse()
+                } else {
+                    if (isMorning) {
+                        coroutineAddCustomMorningTimePulse()
                     } else {
-                        addPulse()
-                    }
-                    withContext(Dispatchers.Main) {
-                        dismiss()
-                        requireActivity().recreate()
+                        coroutineAddCustomEveningTimePulse()
                     }
                 }
+
+            }
+        }
+    }
+
+    private fun coroutineAddCustomEveningTimePulse() {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (dateAlreadyExists()) {
+                addOrReplaceEveningPulse()
+            } else {
+                addEveningPulse()
+            }
+            withContext(Dispatchers.Main) {
+                dismiss()
+                requireActivity().recreate()
+                this@AddPulseDialogFragment.onDetach()
+            }
+        }
+    }
+
+    private fun addEveningPulse() {
+        val pulseToAdd = eveningPulseData()
+        addPulseToDataBase(pulseToAdd)
+    }
+
+    private fun addOrReplaceEveningPulse() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val pulseToChange = FirebaseFirestore.getInstance().collection("pulse")
+                .document(binding.tietDate.text.toString()).get().await()
+                .toObject(PulseData::class.java)
+            replaceEveningData(pulseToChange)
+            if (pulseToChange != null) {
+                addPulseToDataBase(pulseToChange)
+            }
+        }
+    }
+
+    private fun coroutineAddCustomMorningTimePulse() {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (dateAlreadyExists()) {
+                addOrReplaceMorningPulse()
+            } else {
+                addMorningPulse()
+            }
+            withContext(Dispatchers.Main) {
+                dismiss()
+                requireActivity().recreate()
+                this@AddPulseDialogFragment.onDetach()
+            }
+        }
+    }
+
+    private fun addMorningPulse() {
+        val pulseToAdd = morningPulseData()
+        addPulseToDataBase(pulseToAdd)
+    }
+
+    private fun addOrReplaceMorningPulse() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val pulseToChange = FirebaseFirestore.getInstance().collection("pulse")
+                .document(binding.tietDate.text.toString()).get().await()
+                .toObject(PulseData::class.java)
+                replaceMorningData(pulseToChange)
+            if (pulseToChange != null) {
+                addPulseToDataBase(pulseToChange)
+            }
+        }
+    }
+
+    private fun coroutineAddNotCustomTimePulse() {
+        GlobalScope.launch(Dispatchers.IO) {
+            if (dateAlreadyExists()) {
+                addOrReplacePulse()
+            } else {
+                addPulse()
+            }
+            withContext(Dispatchers.Main) {
+                dismiss()
+                requireActivity().recreate()
+                this@AddPulseDialogFragment.onDetach()
             }
         }
     }

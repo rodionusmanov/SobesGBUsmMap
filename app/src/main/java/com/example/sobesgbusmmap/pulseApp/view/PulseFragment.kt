@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.sobesgbusmmap.databinding.PulseFragmentBinding
 import com.example.sobesgbusmmap.pulseApp.data.PulseData
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -36,7 +37,7 @@ class PulseFragment : Fragment() {
 
     private fun getDataFromFirestore() {
         GlobalScope.launch(Dispatchers.IO) {
-            pulseList = pulseCollection.get().await().toObjects(PulseData::class.java)
+            pulseList = pulseCollection.orderBy("date", Query.Direction.DESCENDING).get().await().toObjects(PulseData::class.java)
             withContext(Dispatchers.Main) {
                 initRecyclerView(pulseList)
             }

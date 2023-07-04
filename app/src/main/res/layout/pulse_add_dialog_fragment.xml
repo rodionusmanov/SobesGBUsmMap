@@ -105,6 +105,46 @@
         android:layout_height="1dp"
         android:background="@color/lesson_logo_background"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"       >
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_now"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="сейчас"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@android:color/darker_gray"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_custom_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="свое время"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/white"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_custom_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="утро"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:visibility="invisible"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_custom_evening"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="вечер"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/white"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
     <com.google.android.material.chip.Chip
         android:layout_gravity="center"
         android:id="@+id/chip_save"
