@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/til_date"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@android:color/darker_gray">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiet_date"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="date"
+            android:textSize="16sp"
+            android:textColor="@color/lesson_logo_background"
+            android:background="@android:color/darker_gray"
+            android:gravity="center"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+    <LinearLayout
+        android:id="@+id/ll_background"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="@drawable/evening_background">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_time"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_time"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="time"
+                android:text=""
+                android:textSize="16sp"
+                android:textColor="@color/lesson_logo_background"
+                android:gravity="center"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pressure_max"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_max"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="max"
+                android:textSize="16sp"
+                android:textColor="@color/lesson_logo_background"
+                android:gravity="center"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pressure_min"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_min"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="min"
+                android:textSize="16sp"
+                android:textColor="@color/lesson_logo_background"
+                android:gravity="center"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_pulse"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tiet_pulse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="pulse"
+                android:textSize="16sp"
+                android:textColor="@color/lesson_logo_background"
+                android:gravity="center"
+                android:inputType="number"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/lesson_logo_background"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"       >
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_now"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="сейчас"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@android:color/darker_gray"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_custom_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="свое время"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/white"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_custom_morning"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="утро"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@android:color/darker_gray"
+            android:visibility="invisible"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_custom_evening"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="вечер"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/white"
+            android:visibility="invisible"/>
+    </LinearLayout>
+
+    <com.google.android.material.chip.Chip
+        android:layout_gravity="center"
+        android:id="@+id/chip_save"
+        android:text="Сохранить данные"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/darker_gray"/>
+</LinearLayout>

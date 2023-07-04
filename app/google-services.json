@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "291042216699",
+    "project_id": "sobesgbusmmap",
+    "storage_bucket": "sobesgbusmmap.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:291042216699:android:300b244d60555ed6e37e5e",
+        "android_client_info": {
+          "package_name": "com.example.sobesgbusmmap"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "291042216699-d15c44b8hiifo1cma7i63rfr7bsh9t4g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC361MF9-b2jtLvUw0QvPdl-kZnczGObHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "291042216699-d15c44b8hiifo1cma7i63rfr7bsh9t4g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
